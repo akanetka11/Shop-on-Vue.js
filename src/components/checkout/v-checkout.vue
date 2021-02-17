@@ -28,12 +28,12 @@
             </div>
           </ul>
         </div>
-      </div>
-      <div class="priceDetails">
-        <h1>
-          Price Details
-        </h1>
-        <button type="button" class="placeOrder">Place Order</button>
+        <div class="priceDetails">
+          <h1>
+            Price Details
+          </h1>
+          <button type="button" class="placeOrder">Place Order</button>
+        </div>
       </div>
     </div>
   </div>
@@ -106,9 +106,11 @@ export default {
   border-radius: 8px;
 }
 .checkoutCatalog {
-  padding-top: 30px;
+  padding: 30px 53px;
+  padding-left: 0;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 .productCheckoutInfo {
   width: 693px;
