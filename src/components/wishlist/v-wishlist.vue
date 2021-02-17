@@ -11,9 +11,19 @@
       <toCheckout></toCheckout>
     </div>
     <div class="main">
+      <h1>Wishlist</h1>
       <div class="wishCatalog">
-        <h1>Wishlist</h1>
-
+        <ul>
+          <div class="product">
+            <div class="productInfo">
+              <li v-for="product in catalog" :key="product.id">
+                {{ product.title }}
+              </li>
+            </div>
+            <removeProduct></removeProduct>
+            <AddToCart></AddToCart>
+          </div>
+        </ul>
         <div class="toNextPage">
           <button
             type="button"
@@ -59,6 +69,8 @@
 import toCheckout from "../menu/toCheckout";
 import toHomepage from "../menu/toHomepage";
 import toWishlist from "../menu/toWishlist";
+import removeProduct from "../wishlist/RemoveProduct";
+import AddToCart from "../checkout/AddToCart";
 
 export default {
   name: "wishlist",
@@ -66,6 +78,8 @@ export default {
     toCheckout,
     toHomepage,
     toWishlist,
+    removeProduct,
+    AddToCart,
   },
   props: {},
   data: function() {
@@ -94,6 +108,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding-top: 30px;
 }
 .nextPage {
   width: 100px;

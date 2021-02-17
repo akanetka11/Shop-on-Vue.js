@@ -26,13 +26,17 @@
               placeholder="Search Product"
             />
             <div class="catalog">
-              <div class="product">
-                <ul>
-                  <li v-for="product in catalog" :key="product.id">
-                    {{ product.title }}
-                  </li>
-                </ul>
-              </div>
+              <ul>
+                <div class="product">
+                  <button type="button" class="productInfo">
+                    <li v-for="product in catalog" :key="product.id">
+                      {{ product.title }}
+                    </li>
+                  </button>
+                  <AddToWishlist></AddToWishlist>
+                  <AddToCart></AddToCart>
+                </div>
+              </ul>
             </div>
           </div>
           <div class="toNextPage">
@@ -83,6 +87,8 @@ import toCheckout from "../menu/toCheckout";
 import toHomepage from "../menu/toHomepage";
 import toWishlist from "../menu/toWishlist";
 import filterCategories from "../homepage/filterCategories";
+import AddToWishlist from "../wishlist/AddToWishlist.vue";
+import AddToCart from "../checkout/AddToCart";
 export default {
   name: "v-homepage",
   components: {
@@ -90,6 +96,8 @@ export default {
     toHomepage,
     toWishlist,
     filterCategories,
+    AddToWishlist,
+    AddToCart,
   },
   props: {},
   data: function() {
@@ -219,5 +227,21 @@ export default {
   background-position-x: 50%;
   background-position-y: 50%;
   background-size: 25px;
+}
+.productInfo {
+  width: 212px;
+  height: 243px;
+  border: none;
+  background: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.product {
+  width: 212px;
+  box-shadow: 0px 0px 15px rgba(34, 41, 47, 0.05);
+  border-radius: 8px;
+}
+.catalog {
+  padding-top: 30px;
 }
 </style>

@@ -19,9 +19,11 @@ export default {
   align-items: center;
   border: none;
   cursor: pointer;
+  border-radius: 8px;
 }
 #cart h2 {
-  margin-left: 6px;
+  padding-left: 6px;
+  margin: 0;
   color: #fff;
   font-size: 16px;
 }
