@@ -12,12 +12,12 @@
     </div>
     <div class="main">
       <h1>Checkout</h1>
-      <div class="checkoutCatalog">
-        <div class="productCheckoutInfo">
+      <div class="main__catalog">
+        <div>
           <ul>
-            <div class="productCheckout">
-              <div class="productCheckoutInfo"></div>
-              <div class="productCheckoutInfoNext">
+            <div class="main__catalog__product">
+              <div class="main__catalog__product__info"></div>
+              <div class="main__catalog__product__info__next">
                 <removeProduct></removeProduct>
                 <AddToWishlist
                   v-bind:style="{
@@ -28,7 +28,7 @@
             </div>
           </ul>
         </div>
-        <div class="priceDetails">
+        <div class="main__price">
           <h1>
             Price Details
           </h1>
@@ -138,7 +138,7 @@ export default {
   margin: 0;
   color: #636363;
 }
-.productCheckout {
+.main__catalog__product {
   display: flex;
   width: 870px;
   height: 190px;
@@ -146,25 +146,25 @@ export default {
   box-shadow: 0px 0px 15px rgba(34, 41, 47, 0.05);
   border-radius: 8px;
 }
-.checkoutCatalog {
+.main__catalog {
   padding: 30px 53px;
   padding-left: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.productCheckoutInfo {
+.main__catalog__product__info {
   width: 693px;
-  border-right: 1px solid #e5e5e5;
 }
-.productCheckoutInfoNext {
+.main__catalog__product__info__next {
+  border-left: 1px solid #e3e3e3;
   box-sizing: border-box;
   padding: 20px 18px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-.priceDetails {
+.main__price {
   box-sizing: border-box;
   width: 368px;
   height: 381px;
@@ -172,9 +172,14 @@ export default {
   box-shadow: 0px 0px 15px rgba(34, 41, 47, 0.05);
   border-radius: 8px;
   padding: 32px 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.priceDetails h2 {
+.main__price h1 {
   font-size: 18px;
+  color: #636363;
+  font-weight: bold;
 }
 .placeOrder {
   background: #5e50f1;

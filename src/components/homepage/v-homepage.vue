@@ -12,12 +12,12 @@
     </div>
     <div class="main">
       <h1>Shop</h1>
-      <div class="main-wrapper">
+      <div class="main__wrapper">
         <div>
           <h2>Filters</h2>
           <filterCategories></filterCategories>
         </div>
-        <div class="products">
+        <div class="main__wrapper__products">
           <div>
             <h1>results found</h1>
             <input
@@ -25,10 +25,10 @@
               type="text"
               placeholder="Search Product"
             />
-            <div class="catalog">
+            <div class="main__wrapper__catalog">
               <ul>
-                <div class="product">
-                  <button type="button" class="productInfo">
+                <div class="main__wrapper__catalog__product">
+                  <button type="button" class="product__info">
                     <li v-for="product in catalog" :key="product.id">
                       {{ product.title }}
                     </li>
@@ -149,8 +149,9 @@ export default {
   margin-bottom: 10px;
   margin-top: 0;
 }
-.main-wrapper {
+.main__wrapper {
   padding-top: 25px;
+  display: flex;
 }
 .searchProduct {
   width: 958px;
@@ -174,12 +175,12 @@ export default {
   outline: 0;
   outline-offset: 0;
 }
-.products h1 {
+.main__wrapper__products h1 {
   margin-left: 0;
   font-size: 24px;
   margin-bottom: 10px;
 }
-.products {
+.main__wrapper__products {
   margin-left: 32px;
   display: flex;
   flex-direction: column;
@@ -228,7 +229,7 @@ export default {
   background-position-y: 50%;
   background-size: 25px;
 }
-.productInfo {
+.product__info {
   width: 212px;
   height: 243px;
   border: none;
@@ -236,12 +237,13 @@ export default {
   border-radius: 8px;
   cursor: pointer;
 }
-.product {
+.main__wrapper__catalog__product {
+  background: #fff;
   width: 212px;
   box-shadow: 0px 0px 15px rgba(34, 41, 47, 0.05);
   border-radius: 8px;
 }
-.catalog {
+.main__wrapper__catalog {
   padding-top: 30px;
 }
 </style>

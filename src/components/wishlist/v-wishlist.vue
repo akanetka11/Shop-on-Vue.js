@@ -12,10 +12,10 @@
     </div>
     <div class="main">
       <h1>Wishlist</h1>
-      <div class="wishCatalog">
+      <div class="main__catalog">
         <ul>
-          <div class="product">
-            <div class="productInfo">
+          <div class="main__catalog__product">
+            <div class="main__catalog__product__info">
               <li v-for="product in catalog" :key="product.id">
                 {{ product.title }}
               </li>
@@ -103,12 +103,20 @@ export default {
   margin: 0;
   padding: 0;
 }
-.wishCatalog {
+.main__catalog {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding-top: 30px;
+}
+.main__catalog__product__info {
+  width: 212px;
+  height: 243px;
+  border: none;
+  background: #fff;
+  border-radius: 8px;
+  cursor: pointer;
 }
 .nextPage {
   width: 100px;
