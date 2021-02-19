@@ -138,6 +138,7 @@ export default {
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
+  position: relative;
 }
 .main h1 {
   margin-top: 0px;
@@ -188,16 +189,15 @@ export default {
 }
 .toNextPage {
   display: flex;
-  justify-content: center;
+  position: absolute;
+  bottom: 30px;
+  left: 45%;
 }
 .nextPage {
   width: 100px;
   height: 30px;
   border-radius: 15px;
   background: #f3f2f7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .nextPage .toPage,
 .back,
