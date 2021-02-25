@@ -27,15 +27,19 @@
             />
             <div class="main__wrapper__catalog">
               <ul>
-                <div class="main__wrapper__catalog__product">
+                <li
+                  v-for="product in products"
+                  class="main__wrapper__catalog__product"
+                  :key="product.id"
+                >
                   <button type="button" class="product__info">
-                    <li v-for="product in catalog" :key="product.id">
-                      {{ product.title }}
-                    </li>
+                    <img :src="product.image" />
+                    <p>${{ product.price }}</p>
+                    <p>{{ product.title }}</p>
                   </button>
                   <AddToWishlist></AddToWishlist>
                   <AddToCart></AddToCart>
-                </div>
+                </li>
               </ul>
             </div>
           </div>
@@ -82,7 +86,7 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import toCheckout from "../menu/toCheckout";
 import toHomepage from "../menu/toHomepage";
 import toWishlist from "../menu/toWishlist";
@@ -102,21 +106,25 @@ export default {
   props: {},
   data: function() {
     return {
+      url: "http://localhost:8081/public/static/data.json",
       activeBackground: "#7367f0",
       activeColor: "#fff",
       activeBorderRadius: "25px",
       activeBorder: "1px solid #7367f0",
       activeBackgroundColor: "#f5f5f5",
       activeBorderRadiusOfHomepage: "10px",
+      searchValue: "",
     };
   },
+  //вывод каталога товаров, поиск товара, добавление в корзину, добавление в wishlist
   computed: {
-    ...mapState(["catalog"]),
+    ...mapGetters({ products: "getFourProducts" }),
   },
-  methods: {
-    changeButton: function() {},
+  created() {
+    if (!this.$store.state.products.length) {
+      this.$store.dispatch("getProducts");
+    }
   },
-  watch: {},
 };
 </script>
 <style>
@@ -176,6 +184,14 @@ export default {
   outline: 0;
   outline-offset: 0;
 }
+.main__wrapper__catalog ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.main__wrapper__catalog__product {
+  list-style: none;
+}
 .main__wrapper__products h1 {
   margin-left: 0;
   font-size: 24px;
@@ -198,6 +214,7 @@ export default {
   height: 30px;
   border-radius: 15px;
   background: #f3f2f7;
+  box-shadow: 0px 4px 25px rgba(34, 41, 47, 0.25);
 }
 .nextPage .toPage,
 .back,
@@ -236,6 +253,17 @@ export default {
   background: #fff;
   border-radius: 8px;
   cursor: pointer;
+}
+.product__info p {
+  color: #62606e;
+  font-size: 16px;
+  text-align: left;
+  padding-left: 15px;
+  padding-top: 6px;
+}
+.product__info img {
+  width: 212px;
+  height: 151px;
 }
 .main__wrapper__catalog__product {
   background: #fff;
