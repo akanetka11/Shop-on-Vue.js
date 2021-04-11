@@ -1,16 +1,16 @@
 <template>
   <div class="v-homepage">
-    <div class="menu">
+    <div id="menu" class="menu">
       <toHomepage
         v-bind:style="{
           background: activeBackgroundColor,
           borderRadius: activeBorderRadiusOfHomepage,
         }"
       ></toHomepage>
-      <toWishlist></toWishlist>
-      <toCheckout></toCheckout>
+
+      <toCart> </toCart>
     </div>
-    <div class="main">
+    <div id="main" class="main">
       <h1>Shop</h1>
       <div class="main__wrapper">
         <div>
@@ -20,65 +20,60 @@
         <div class="main__wrapper__products">
           <div>
             <h1>results found</h1>
-            <input
-              class="searchProduct"
-              type="text"
-              placeholder="Search Product"
-            />
-            <div class="main__wrapper__catalog">
-              <ul>
-                <li
-                  v-for="product in products"
-                  class="main__wrapper__catalog__product"
-                  :key="product.id"
+            <div class="searchProduct">
+              <input
+                class="searchField"
+                type="text"
+                placeholder="Search Product"
+                v-model="search"
+              />
+              <button
+                type="button"
+                class="searchButton"
+                @click="searchProduct(search)"
+              >
+                <img src="../img/icons8-поиск-50.png" />
+              </button>
+            </div>
+            <products></products>
+
+            <div class="toNextPage">
+              <button type="button" class="back"></button>
+              <div class="nextPage">
+                <button
+                  type="button"
+                  v-bind:style="{
+                    color: activeColor,
+                    background: activeBackground,
+                    borderRadius: activeBorderRadius,
+                    border: activeBorder,
+                  }"
+                  class="toPage"
+                  @click="switchView('firstProducts')"
                 >
-                  <button type="button" class="product__info">
-                    <img :src="product.image" />
-                    <p>${{ product.price }}</p>
-                    <p>{{ product.title }}</p>
-                  </button>
-                  <AddToWishlist></AddToWishlist>
-                  <AddToCart></AddToCart>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="toNextPage">
-            <button type="button" class="back"></button>
-            <div class="nextPage">
+                  1
+                </button>
+                <button
+                  type="button"
+                  class="toPage"
+                  @click="switchView('secondProducts')"
+                >
+                  2
+                </button>
+                <button
+                  type="button"
+                  class="toPage"
+                  @click="switchView('thirdProducts')"
+                >
+                  3
+                </button>
+              </div>
               <button
                 type="button"
-                v-bind:style="{
-                  color: activeColor,
-                  background: activeBackground,
-                  borderRadius: activeBorderRadius,
-                  border: activeBorder,
-                }"
-                class="toPage"
-                @click="$router.push('/')"
-              >
-                1
-              </button>
-              <button
-                type="button"
-                class="toPage"
                 @click="$router.push('/wishlist')"
-              >
-                2
-              </button>
-              <button
-                type="button"
-                class="toPage"
-                @click="$router.push('/checkout')"
-              >
-                3
-              </button>
+                class="next"
+              ></button>
             </div>
-            <button
-              type="button"
-              @click="$router.push('/wishlist')"
-              class="next"
-            ></button>
           </div>
         </div>
       </div>
@@ -86,26 +81,33 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
-import toCheckout from "../menu/toCheckout";
 import toHomepage from "../menu/toHomepage";
-import toWishlist from "../menu/toWishlist";
+import toCart from "../menu/toCart";
 import filterCategories from "../homepage/filterCategories";
-import AddToWishlist from "../wishlist/AddToWishlist.vue";
-import AddToCart from "../checkout/AddToCart";
+import products from "../products";
+import { mapActions, mapGetters } from "vuex";
+// import toFix from "../../filters/toFix";
+// import formattedPrice from "../../filters/price-format";
+
 export default {
   name: "v-homepage",
   components: {
-    toCheckout,
     toHomepage,
-    toWishlist,
+    toCart,
     filterCategories,
-    AddToWishlist,
-    AddToCart,
+    products,
   },
   props: {},
   data: function() {
     return {
+      categories: [
+        { type: "Cell phones", value: "cp" },
+        { type: "Computer", value: "c" },
+        { type: "Health and Fitness", value: "haf" },
+        { type: "Office", value: "o" },
+        { type: "TV", value: "tv" },
+        { type: "Video Games", value: "vg" },
+      ],
       url: "http://localhost:8081/public/static/data.json",
       activeBackground: "#7367f0",
       activeColor: "#fff",
@@ -114,17 +116,22 @@ export default {
       activeBackgroundColor: "#f5f5f5",
       activeBorderRadiusOfHomepage: "10px",
       searchValue: "",
+      currentView: "firstProducts",
+      isActive: true,
+      search: "",
     };
   },
-  //вывод каталога товаров, поиск товара, добавление в корзину, добавление в wishlist
   computed: {
-    ...mapGetters({ products: "getFourProducts" }),
+    ...mapGetters(["SEARCH"]),
   },
-  created() {
-    if (!this.$store.state.products.length) {
-      this.$store.dispatch("getProducts");
-    }
+  methods: {
+    ...mapActions(["GET_SEARCH"]),
+    searchProduct(value) {
+      this.GET_SEARCH(value);
+    },
   },
+
+  //вывод каталога товаров, поиск товара, добавление в корзину, добавление в wishlist
 };
 </script>
 <style>
@@ -133,20 +140,30 @@ export default {
 }
 .menu {
   width: 90px;
-  padding-top: 25px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+#menu {
+  padding-top: 25px;
+}
+.wishCount {
+  background: #e85659;
+  border-radius: 10px;
+}
+
 .main {
   background: #f5f5f5;
-  padding-top: 25px;
+  padding-top: 15px;
   padding-left: 32px;
   padding-bottom: 25px;
-  width: 100vw;
-  height: 100vh;
   box-sizing: border-box;
   position: relative;
+}
+#main {
+  width: 100vw;
+  height: 100vh;
 }
 .main h1 {
   margin-top: 0px;
@@ -159,10 +176,25 @@ export default {
   margin-top: 0;
 }
 .main__wrapper {
-  padding-top: 25px;
+  padding-top: 10px;
   display: flex;
 }
+.searchField {
+  border: none;
+  width: 958px;
+  height: 44px;
+}
+.searchButton {
+  border: none;
+
+  background: #fff;
+}
+.searchButton img {
+  width: 25px;
+  height: 25px;
+}
 .searchProduct {
+  display: flex;
   width: 958px;
   height: 44px;
   background-image: url("../img/icons8-поиск-50.png");
@@ -184,29 +216,11 @@ export default {
   outline: 0;
   outline-offset: 0;
 }
-.main__wrapper__catalog ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-.main__wrapper__catalog__product {
-  list-style: none;
-}
-.main__wrapper__products h1 {
-  margin-left: 0;
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-.main__wrapper__products {
-  margin-left: 32px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+
 .toNextPage {
   display: flex;
   position: absolute;
-  bottom: 30px;
+  bottom: 3%;
   left: 45%;
 }
 .nextPage {
@@ -245,33 +259,5 @@ export default {
   background-position-x: 50%;
   background-position-y: 50%;
   background-size: 25px;
-}
-.product__info {
-  width: 212px;
-  height: 243px;
-  border: none;
-  background: #fff;
-  border-radius: 8px;
-  cursor: pointer;
-}
-.product__info p {
-  color: #62606e;
-  font-size: 16px;
-  text-align: left;
-  padding-left: 15px;
-  padding-top: 6px;
-}
-.product__info img {
-  width: 212px;
-  height: 151px;
-}
-.main__wrapper__catalog__product {
-  background: #fff;
-  width: 212px;
-  box-shadow: 0px 0px 15px rgba(34, 41, 47, 0.05);
-  border-radius: 8px;
-}
-.main__wrapper__catalog {
-  padding-top: 30px;
 }
 </style>

@@ -1,8 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Homepage from "../components/homepage/v-homepage.vue";
-import Wishlist from "../components/wishlist/v-wishlist.vue";
-import Checkout from "../components/checkout/v-checkout.vue";
+import Cart from "../components/cart/v-cart.vue";
+import productDetails from "../components/productDetails/v-product-details.vue";
 
 Vue.use(Router);
 
@@ -15,14 +15,15 @@ export const router = new Router({
       component: Homepage,
     },
     {
-      path: "/wishlist",
-      name: "wishlist",
-      component: Wishlist,
+      path: "/cart",
+      name: "cart",
+      component: Cart,
     },
+
     {
-      path: "/checkout",
-      name: "checkout",
-      component: Checkout,
+      path: "/product/:id",
+      name: "productDetails",
+      component: productDetails,
     },
   ],
 });

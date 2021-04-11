@@ -1,36 +1,26 @@
 <template>
   <div class="filterCategories">
-    <h1>Categories</h1>
-    <div class="radio">
-      <input type="radio" class="radio_input" id="radio_1" name="categories" />
-      <label for="radio_1" class="radio_label">Cell phones</label>
-    </div>
-    <div class="radio">
-      <input type="radio" class="radio_input" id="radio_2" name="categories" />
-      <label for="radio_2" class="radio_label">Computer</label>
-    </div>
-    <div class="radio">
-      <input type="radio" class="radio_input" id="radio_3" name="categories" />
-      <label for="radio_3" class="radio_label">Health and Fitness</label>
-    </div>
-    <div class="radio">
-      <input type="radio" class="radio_input" id="radio_4" name="categories" />
-      <label for="radio_4" class="radio_label">Office</label>
-    </div>
-    <div class="radio">
-      <input type="radio" class="radio_input" id="radio_5" name="categories" />
-      <label for="radio_5" class="radio_label">TV</label>
-    </div>
-    <div class="radio">
-      <input type="radio" class="radio_input" id="radio_6" name="categories" />
-      <label for="radio_6" class="radio_label">Video Games</label>
-    </div>
+    <VCategories :categories="categories"></VCategories>
     <div class="wrapper">
       <h1>Price</h1>
     </div>
     <div class="price">
-      <input class="minPrice" placeholder="0" />
-      <input class="maxPrice" placeholder="0" />
+      <input
+        v-model.number="minPrice"
+        type="range"
+        class="minPrice"
+        min="0"
+        max="1000"
+        step="10"
+      />
+      <input
+        v-model.number="maxPrice"
+        type="range"
+        class="maxPrice"
+        min="0"
+        max="1000"
+        step="10"
+      />
     </div>
     <div class="wrapper">
       <h1>Brands</h1>
@@ -58,7 +48,28 @@
   </div>
 </template>
 <script>
-export default {};
+import VCategories from "../homepage/v-categories";
+export default {
+  name: "v-filterCategories",
+  components: {
+    VCategories,
+  },
+  props: {},
+  data: function() {
+    return {
+      categories: [
+        { name: "Cell phones", value: "cp" },
+        { name: "Computer", value: "c" },
+        { name: "Health and Fitness", value: "haf" },
+        { name: "Office", value: "o" },
+        { name: "TV", value: "tv" },
+        { name: "Video Games", value: "vg" },
+      ],
+      minPrice: 0,
+      maxPrice: 1000,
+    };
+  },
+};
 </script>
 <style>
 .filterCategories {

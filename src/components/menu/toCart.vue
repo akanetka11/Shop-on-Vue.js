@@ -1,15 +1,15 @@
 <template>
-  <div class="toCheckout">
-    <div class="toCheckout-bg">
-      <button type="button" @click="$router.push('/checkout')">
-        <img src="../img/icons8-сердце-52 (1).png" />
+  <div class="toWishlist">
+    <div class="toWishlist-bg">
+      <button type="button" @click="$router.push('/cart')">
+        <img src="../img/icons8-корзина-50 (1).png" />
       </button>
     </div>
   </div>
 </template>
 <script>
 export default {
-  name: "toCheckout",
+  name: "toWishlist",
   components: {},
   props: {},
   data() {
@@ -21,16 +21,16 @@ export default {
 };
 </script>
 <style scoped>
-.toCheckout-bg {
+.toWishlist-bg {
   width: 60px;
   height: 60px;
   display: flex;
-  justify-content: center;
   border-radius: 10px;
+  justify-content: center;
   align-items: center;
 }
-.toCheckout img {
-  width: 33px;
+.toWishlist img {
+  width: 31px;
   height: 26px;
 }
 button {
