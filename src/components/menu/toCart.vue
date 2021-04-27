@@ -1,6 +1,6 @@
 <template>
-  <div class="toWishlist">
-    <div class="toWishlist-bg">
+  <div class="toCart">
+    <div class="toCart-bg">
       <button type="button" @click="$router.push('/cart')">
         <img src="../img/icons8-корзина-50 (1).png" />
       </button>
@@ -9,7 +9,7 @@
 </template>
 <script>
 export default {
-  name: "toWishlist",
+  name: "toCart",
   components: {},
   props: {},
   data() {
@@ -21,7 +21,7 @@ export default {
 };
 </script>
 <style scoped>
-.toWishlist-bg {
+.toCart-bg {
   width: 60px;
   height: 60px;
   display: flex;
@@ -29,7 +29,7 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.toWishlist img {
+.toCart img {
   width: 31px;
   height: 26px;
 }

@@ -20,23 +20,36 @@ export default {
     vCatalogItem,
   },
   data() {
-    return {};
+    return {
+      sortedProducts: [],
+    };
   },
   computed: {
     ...mapGetters(["PRODUCTS", "SEARCH"]),
-    filteredProducts() {
-      if (this.sortedProducts.length) {
-        return this.sortedProducts;
-      } else {
-        return this.PRODUCTS;
-      }
-    },
+  },
+  filteredProducts() {
+    if (this.sortedProducts.length) {
+      return this.sortedProducts;
+    } else {
+      return this.PRODUCTS;
+    }
   },
   methods: {
     ...mapActions(["GET_PRODUCTS_FROM_API", "ADD_TO_CART"]),
     addProductToCart(data) {
       this.ADD_TO_CART(data);
     },
+    sortByCategories() {
+      let vm = this;
+      this.sortedProducts = [...this.PRODUCTS];
+      this.sortedProducts = this.sortedProducts.filter(function(item) {
+        return item.price >= vm.minPrice && item.price <= vm.maxPrice;
+      });
+    },
+  },
+  mounted() {
+    this.GET_PRODUCTS_FROM_API();
+    this.sortByCategories();
   },
   watch: {},
 };

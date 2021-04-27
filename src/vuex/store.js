@@ -51,15 +51,16 @@ export const store = new Vuex.Store({
       commit("SET_SEARCH", value);
     },
     GET_PRODUCTS_FROM_API({ commit }) {
-      axios
-        .get("http://localhost:3000/products")
-        .then((products) => {
-          commit("SET_PRODUCTS_TO_STATE", products.data);
-        })
-        .catch((error) => {
-          console.log(error);
-          return error;
-        });
+      axios.get("http://localhost:3000/products").then((products) => {
+        commit("SET_PRODUCTS_TO_STATE", products.data);
+      });
+      (error) => {
+        if (!error.response) {
+          console.log("Please check your internet connection.");
+        }
+
+        return Promise.reject(error);
+      };
     },
     ADD_TO_CART({ commit }, product) {
       commit("SET_CART", product);

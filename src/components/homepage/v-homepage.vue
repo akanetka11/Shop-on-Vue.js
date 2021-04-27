@@ -36,44 +36,6 @@
               </button>
             </div>
             <products></products>
-
-            <div class="toNextPage">
-              <button type="button" class="back"></button>
-              <div class="nextPage">
-                <button
-                  type="button"
-                  v-bind:style="{
-                    color: activeColor,
-                    background: activeBackground,
-                    borderRadius: activeBorderRadius,
-                    border: activeBorder,
-                  }"
-                  class="toPage"
-                  @click="switchView('firstProducts')"
-                >
-                  1
-                </button>
-                <button
-                  type="button"
-                  class="toPage"
-                  @click="switchView('secondProducts')"
-                >
-                  2
-                </button>
-                <button
-                  type="button"
-                  class="toPage"
-                  @click="switchView('thirdProducts')"
-                >
-                  3
-                </button>
-              </div>
-              <button
-                type="button"
-                @click="$router.push('/wishlist')"
-                class="next"
-              ></button>
-            </div>
           </div>
         </div>
       </div>

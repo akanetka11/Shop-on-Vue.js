@@ -1,73 +1,69 @@
 <template>
   <div class="filterCategories">
-    <VCategories :categories="categories"></VCategories>
+    <VCategories></VCategories>
     <div class="wrapper">
       <h1>Price</h1>
     </div>
-    <div class="price">
-      <input
-        v-model.number="minPrice"
-        type="range"
-        class="minPrice"
-        min="0"
-        max="1000"
-        step="10"
-      />
-      <input
-        v-model.number="maxPrice"
-        type="range"
-        class="maxPrice"
-        min="0"
-        max="1000"
-        step="10"
-      />
+    <div class="filters">
+      <div class="prices">
+        <input
+          v-model.number="minPrice"
+          type="number"
+          class="minPrice"
+          min="0"
+          max="1000"
+          step="10"
+        />
+        <input
+          v-model.number="maxPrice"
+          type="number"
+          class="maxPrice"
+          min="0"
+          max="1000"
+          step="10"
+        />
+      </div>
+      <div class="values">
+        <p>Min: {{ minPrice }}</p>
+        <p>Max: {{ maxPrice }}</p>
+      </div>
     </div>
-    <div class="wrapper">
-      <h1>Brands</h1>
-    </div>
-    <div class="radio">
-      <input type="radio" class="radio_input" id="radio_7" name="brands" />
-      <label for="radio_7" class="radio_label">Insignia™</label>
-    </div>
-    <div class="radio">
-      <input type="radio" class="radio_input" id="radio_8" name="brands" />
-      <label for="radio_8" class="radio_label">Samsung</label>
-    </div>
-    <div class="radio">
-      <input type="radio" class="radio_input" id="radio_9" name="brands" />
-      <label for="radio_9" class="radio_label">HP</label>
-    </div>
-    <div class="radio">
-      <input type="radio" class="radio_input" id="radio_10" name="brands" />
-      <label for="radio_10" class="radio_label">Apple</label>
-    </div>
-    <div class="radio">
-      <input type="radio" class="radio_input" id="radio_11" name="brands" />
-      <label for="radio_11" class="radio_label">Sony</label>
-    </div>
+    <p class="selectedBrand">{{ selected }}</p>
+    <VSelectBrands
+      :brands="brands"
+      @select="selectBrand"
+      :selected="selected"
+    ></VSelectBrands>
   </div>
 </template>
 <script>
 import VCategories from "../homepage/v-categories";
+import VSelectBrands from "../v-selectBrands";
 export default {
   name: "v-filterCategories",
   components: {
     VCategories,
+    VSelectBrands,
   },
   props: {},
   data: function() {
     return {
-      categories: [
-        { name: "Cell phones", value: "cp" },
-        { name: "Computer", value: "c" },
-        { name: "Health and Fitness", value: "haf" },
-        { name: "Office", value: "o" },
-        { name: "TV", value: "tv" },
-        { name: "Video Games", value: "vg" },
+      brands: [
+        { name: "Insignia™", value: "" },
+        { name: "Samsung", value: "" },
+        { name: "HP", value: "" },
+        { name: "Apple", value: "" },
+        { name: "Sony", value: "" },
       ],
+      selected: "Select",
       minPrice: 0,
       maxPrice: 1000,
     };
+  },
+  methods: {
+    selectBrand(brand) {
+      this.selected = brand.name;
+    },
   },
 };
 </script>
@@ -76,11 +72,14 @@ export default {
   box-sizing: border-box;
   width: 215px;
   background: #ffffff;
+  padding-top: 7px;
   padding-right: 25px;
   padding-left: 25px;
-  padding-bottom: 5px;
+  padding-bottom: 80px;
   box-shadow: 0px 0px 15px rgba(34, 41, 47, 0.05);
   border-radius: 8px;
+  min-height: 550px;
+  max-height: 550px;
 }
 .filterCategories h1 {
   margin-bottom: 20px;
@@ -127,78 +126,47 @@ export default {
 }
 .wrapper {
   margin-bottom: 20px;
+  position: absolute;
+  top: 60%;
 }
 
 .main-wrapper {
   display: flex;
 }
-
-.radio_input {
-  -webkit-appearance: none;
-  appearance: none;
+.selectedBrand {
   position: absolute;
+  top: 40%;
 }
-.radio {
+.range-slider {
+  width: 200px;
+  margin: auto 16px;
+  text-align: center;
   position: relative;
-  margin-bottom: 10px;
 }
 
-.radio_input {
-  -webkit-appearance: none;
-  appearance: none;
+.range-slider svg,
+.range-slider input[type="range"] {
   position: absolute;
-}
-
-.radio_label {
-  padding-left: 25px;
-  font-size: 1rem;
-  color: #444;
-  cursor: pointer;
-}
-
-.radio_label:before {
-  content: "";
-  display: block;
-  width: 16px;
-  height: 16px;
-
-  border: 1px solid #ccc;
-  background-color: #fff;
-  border-radius: 50%;
-
-  position: absolute;
-  top: 0;
   left: 0;
-  z-index: 1;
-
-  transition: border 0.1s linear;
+  bottom: 0;
 }
 
-.radio_label:after {
-  content: "";
-  display: block;
-  width: 16px;
-  height: 16px;
-
-  background: #7367f0;
-  border: 1px solid #7367f0;
-  border-radius: 50%;
-  opacity: 0;
-
+input[type="range"]::-webkit-slider-thumb {
+  z-index: 2;
+  position: relative;
+  top: 2px;
+  margin-top: -7px;
+}
+.values {
+  margin-left: 20px;
+}
+.filters {
+  display: flex;
+  flex-direction: column;
   position: absolute;
-  top: 0.6px;
-  left: 0.6px;
-  z-index: 1;
-  box-shadow: 1px 2px 4px rgba(115, 103, 240, 0.4);
-
-  transition: opacity 0.1s linear;
+  top: 70%;
 }
-.radio_input:checked + .radio_label:before {
-  border-color: #ccc;
-}
-
-.radio_input:checked + .radio_label:after {
-  border-color: #7367f0;
-  opacity: 1;
+.prices {
+  margin-bottom: 10px;
 }
 </style>

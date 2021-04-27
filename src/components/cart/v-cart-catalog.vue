@@ -23,9 +23,11 @@
         <h1>Total</h1>
         <p>${{ cartTotalCost }}</p>
       </div>
-      <button type="button" id="order">
-        <h2>Place Order</h2>
-      </button>
+      <a href="#enterInf">
+        <button type="button" id="order">
+          Place Order
+        </button>
+      </a>
     </div>
   </div>
 </template>
@@ -150,7 +152,9 @@ export default {
   border: none;
   cursor: pointer;
   border-radius: 8px;
+  color: #fff;
 }
+
 #order:hover {
   background: #5d50f1cc;
 }

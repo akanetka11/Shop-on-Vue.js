@@ -81,12 +81,14 @@ export default {
   box-sizing: border-box;
   padding: 5px;
 }
-.price .title {
+.price,
+.title {
   color: #62606e;
   text-align: left;
   padding-left: 15px;
   padding-top: 6px;
   font-size: 12px;
+  border: none;
 }
 .product__info img {
   width: 160px;

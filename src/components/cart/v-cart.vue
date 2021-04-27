@@ -15,49 +15,11 @@
       <div class="main__wrapper">
         <VCartCatalog :cart_data="CART"></VCartCatalog>
       </div>
-      <div class="main__catalog">
-        <div class="toNextPage">
-          <button
-            type="button"
-            @click="$router.push('/')"
-            class="back"
-          ></button>
-          <div class="nextPage">
-            <button type="button" class="toPage" @click="$router.push('/')">
-              1
-            </button>
-            <button
-              v-bind:style="{
-                color: activeColor,
-                background: activeBackground,
-                borderRadius: activeBorderRadius,
-                border: activeBorder,
-              }"
-              type="button"
-              class="toPage"
-              @click="$router.push('/wishlist')"
-            >
-              2
-            </button>
-            <button
-              type="button"
-              class="toPage"
-              @click="$router.push('/checkout')"
-            >
-              3
-            </button>
-          </div>
-          <button
-            type="button"
-            @click="$router.push('/checkout')"
-            class="next"
-          ></button>
-        </div>
-      </div>
+      <div class="main__catalog"></div>
     </div>
   </div>
 </template>
-//
+
 <script>
 import { mapGetters } from "vuex";
 import VCartCatalog from "../cart/v-cart-catalog";
